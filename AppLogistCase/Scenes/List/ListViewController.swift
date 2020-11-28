@@ -47,31 +47,33 @@ class ListViewController: UIViewController {
 
     // MARK: - Operations
     @objc func add(_ button: UIButton) {
-        let entity = viewModel.entities[button.tag]
-        if entity.amount < entity.stock {
-            entity.amount += 1
-        }
-        let indexPath = IndexPath(item: button.tag, section: 0)
-        self.layoutableView.collectionView.reloadItems(at: [indexPath])
+        viewModel.increase(index: button.tag)
+        reload(index: button.tag)
     }
 
     @objc func subtract(_ button: UIButton) {
-        let entity = viewModel.entities[button.tag]
-        entity.amount -= 1
-        let indexPath = IndexPath(item: button.tag, section: 0)
+        viewModel.decrease(index: button.tag)
+        reload(index: button.tag)
+    }
+
+    func reload(index: Int) {
+        let indexPath = IndexPath(item: index, section: 0)
         self.layoutableView.collectionView.reloadItems(at: [indexPath])
+        let total = CartManager.shared.totalProducts
+        layoutableView.cartBadgeView.isHidden = total == 0
+        layoutableView.cartLabel.text = String(total)
     }
 }
 
 // MARK: - CollectionView Delegate
 extension ListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel.entities.count
+        return self.viewModel.products.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ListCell", for: indexPath) as! ListCell
-        let entity = viewModel.entities[indexPath.item]
+        let entity = viewModel.products[indexPath.item]
         cell.configure(entity, index: indexPath.item)
         cell.addButton.addTarget(self, action: #selector(add(_:)), for: .touchUpInside)
         cell.subtractButton.addTarget(self, action: #selector(subtract(_:)), for: .touchUpInside)

@@ -43,13 +43,13 @@ class ListView: UIView {
         view.layer.shadowOpacity = 0.5
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
         view.layer.shadowRadius = 5
+        view.isHidden = true
         return view
     }()
 
     lazy var cartLabel: UILabel = {
         let label = UILabel()
-        label.text = "3"
-        label.font = UIFont.systemFont(ofSize: 11)
+        label.font = UIFont.systemFont(ofSize: 10)
         label.textColor = .black
         label.textAlignment = .center
         label.minimumScaleFactor = 0.75

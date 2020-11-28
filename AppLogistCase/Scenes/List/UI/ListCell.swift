@@ -128,8 +128,8 @@ class ListCell: UICollectionViewCell {
 
 extension ListCell {
 
-    func configure(_ entity: ListViewModel.Entity, index: Int) {
-        priceLabel.text = entity.price
+    func configure(_ entity: Product, index: Int) {
+        priceLabel.text = entity.currency + String(entity.price)
         nameLabel.text = entity.name
         imageView.sd_setImage(with: entity.imageUrl, completed: nil)
         quantityLabel.text = String(entity.amount)
