@@ -16,7 +16,6 @@ class ListViewModel {
     /// Fetches list of products
     /// Parameters:
     func fetch(completion: @escaping(Result<[Product], VMError>) -> Void) {
-        // TODO: Show indicator
         API.mainService.request(.list) { [weak self] (result) in
             guard let self = self else { return }
             switch result {
@@ -48,12 +47,12 @@ class ListViewModel {
     }
 
     func increase(index: Int) {
-        var product = products[index]
-        CartManager.shared.increaseQuantity(for: &product)
+        let product = products[index]
+        CartManager.shared.increaseQuantity(for: product)
     }
 
     func decrease(index: Int) {
-        var product = products[index]
-        CartManager.shared.decreaseQuantity(for: &product)
+        let product = products[index]
+        CartManager.shared.decreaseQuantity(for: product)
     }
 }

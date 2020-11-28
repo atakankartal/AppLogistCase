@@ -26,8 +26,14 @@ class ListViewController: UIViewController {
 
         layoutableView.collectionView.delegate = self
         layoutableView.collectionView.dataSource = self
+        layoutableView.cartImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showCart)))
+        NotificationCenter.default.addObserver(self, selector: #selector(productHasEdited(_:)), name: NSNotification.Name.init("ProductAmountHasChanged"), object: nil)
         // TODO: - show Activity Indicator
         self.fetch()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.init("ProductAmountHasChanged"), object: nil)
     }
 
     // MARK: - Networking
@@ -48,24 +54,37 @@ class ListViewController: UIViewController {
     // MARK: - Operations
     @objc func add(_ button: UIButton) {
         viewModel.increase(index: button.tag)
-        reload(index: button.tag)
     }
 
     @objc func subtract(_ button: UIButton) {
         viewModel.decrease(index: button.tag)
-        reload(index: button.tag)
     }
 
-    func reload(index: Int) {
-        let indexPath = IndexPath(item: index, section: 0)
-        self.layoutableView.collectionView.reloadItems(at: [indexPath])
+    //MARK: - Observer
+    @objc func productHasEdited(_ notification: NSNotification) {
+        guard let products = notification.userInfo?["products"] as? [Product] else { return }
+        var editedIndices = [IndexPath]()
+        products.forEach { (product) in
+            guard let index = self.viewModel.products.firstIndex(where: { $0 == product}) else { return }
+            self.viewModel.products[index].amount = product.amount
+            editedIndices.append(IndexPath(item: index, section: 0))
+        }
+        layoutableView.collectionView.reloadItems(at: editedIndices)
         let total = CartManager.shared.totalProducts
         layoutableView.cartBadgeView.isHidden = total == 0
         layoutableView.cartLabel.text = String(total)
     }
+
+    // MARK: - Router
+    @objc func showCart() {
+        let vc = CartViewController()
+        vc.modalTransitionStyle = .coverVertical
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
 }
 
-// MARK: - CollectionView Delegate
+// MARK: - CollectionView Delegate & DataSource
 extension ListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel.products.count

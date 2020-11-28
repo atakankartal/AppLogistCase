@@ -1,16 +1,17 @@
 //
-//  ListCell.swift
+//  CartCell.swift
 //  AppLogistCase
 //
 //  Created by Atakan Kartal on 28.11.2020.
 //
 
 import UIKit
+import SnapKit
 import SDWebImage
 
-class ListCell: UICollectionViewCell {
+class CartCell: UITableViewCell {
 
-    lazy var imageView: UIImageView = {
+    lazy var productImageView: UIImageView = {
         var iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.backgroundColor = .clear
@@ -41,7 +42,7 @@ class ListCell: UICollectionViewCell {
     }()
 
     lazy var stackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [imageView, priceLabel, nameLabel])
+        let sv = UIStackView(arrangedSubviews: [productImageView, priceLabel, nameLabel])
         sv.axis = .vertical
         sv.alignment = .fill
         sv.spacing = 0
@@ -92,27 +93,46 @@ class ListCell: UICollectionViewCell {
         return sv
     }()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    lazy var bottomLineView: UIView = {
+        var view = UIView()
+        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.184770976)
+        view.alpha = 1
+        return view
+    }()
 
-        backgroundColor = .clear
-        addSubview(stackView)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        contentView.isUserInteractionEnabled = false
+        selectionStyle = .none
+        backgroundColor = .white
+        addSubview(productImageView)
+        addSubview(nameLabel)
+        addSubview(priceLabel)
         addSubview(quantityStackView)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        addSubview(bottomLineView)
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        imageView.snp.makeConstraints { (make) in
-            make.width.equalToSuperview()
-            make.height.equalTo(self.snp.width).multipliedBy(0.8)
+        productImageView.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().inset(16.scale)
+            make.width.equalTo(70.scale)
+            make.height.equalTo(60.scale)
         }
 
-        stackView.snp.makeConstraints { $0.edges.equalToSuperview()}
+        nameLabel.snp.makeConstraints { (make) in
+            make.leading.equalTo(productImageView.snp.trailing).offset(16)
+            make.top.equalTo(productImageView).offset(8.scale)
+            make.trailing.equalTo(quantityStackView.snp.leading).offset(-8.scale)
+        }
+
+        priceLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(nameLabel.snp.bottom).offset(6.scale)
+            make.leading.trailing.equalTo(nameLabel)
+        }
 
         let quantityHeight: Double = 22
         addButton.snp.makeConstraints { $0.width.height.equalTo(quantityHeight.scale)}
@@ -120,21 +140,31 @@ class ListCell: UICollectionViewCell {
         subtractButton.snp.makeConstraints { $0.width.height.equalTo(quantityHeight.scale)}
 
         quantityStackView.snp.makeConstraints { (make) in
-            make.top.trailing.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().inset(16.scale)
             make.height.equalTo(quantityHeight.scale)
         }
+
+        bottomLineView.snp.makeConstraints { (make) in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(1)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
-extension ListCell {
+extension CartCell {
 
-    func configure(_ product: Product, index: Int) {
+    func configure(_ product: Product) {
         priceLabel.text = product.currency + String(product.price)
         nameLabel.text = product.name
-        imageView.sd_setImage(with: product.imageUrl, completed: nil)
+        productImageView.sd_setImage(with: product.imageUrl, completed: nil)
         quantityLabel.text = String(product.amount)
-        addButton.tag = index
-        subtractButton.tag = index
+        addButton.tag = product.index
+        subtractButton.tag = product.index
         subtractButton.isHidden = product.amount == 0
         quantityLabel.isHidden = product.amount == 0
     }

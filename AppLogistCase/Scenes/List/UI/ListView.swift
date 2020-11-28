@@ -32,6 +32,7 @@ class ListView: UIView {
         var iv = UIImageView()
         iv.image = UIImage(named: "cart")
         iv.contentMode = .scaleAspectFill
+        iv.isUserInteractionEnabled = true
         return iv
     }()
 
