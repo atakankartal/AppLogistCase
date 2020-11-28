@@ -60,7 +60,7 @@ class ListCell: UICollectionViewCell {
 
     lazy var quantityLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .white
+        label.backgroundColor = #colorLiteral(red: 0.8431372549, green: 0.9490196078, blue: 1, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 11)
         label.textColor =  .black
         label.textAlignment = .center
