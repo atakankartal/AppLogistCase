@@ -6,13 +6,15 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ListCell: UICollectionViewCell {
 
     lazy var imageView: UIImageView = {
         var iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
-        iv.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        iv.contentMode = .scaleAspectFit
+        iv.backgroundColor = .clear
+        iv.clipsToBounds = true
         return iv
     }()
 
@@ -58,27 +60,28 @@ class ListCell: UICollectionViewCell {
 
     lazy var quantityLabel: UILabel = {
         let label = UILabel()
-        label.text = "3"
         label.backgroundColor = .white
         label.font = UIFont.systemFont(ofSize: 11)
         label.textColor =  .black
         label.textAlignment = .center
         label.minimumScaleFactor = 0.75
         label.adjustsFontSizeToFitWidth = true
+        label.isHidden = true
         return label
     }()
 
-    lazy var substractButton: UIButton = {
+    lazy var subtractButton: UIButton = {
         let button = UIButton()
         button.setTitle("-", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .white
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 2, right: 0)
+        button.isHidden = true
         return button
     }()
 
     lazy var quantityStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [substractButton, quantityLabel, addButton])
+        let sv = UIStackView(arrangedSubviews: [subtractButton, quantityLabel, addButton])
         sv.axis = .horizontal
         sv.alignment = .fill
         sv.spacing = 1
@@ -114,11 +117,25 @@ class ListCell: UICollectionViewCell {
         let quantityHeight: Double = 22
         addButton.snp.makeConstraints { $0.width.height.equalTo(quantityHeight.scale)}
         quantityLabel.snp.makeConstraints { $0.width.height.equalTo(quantityHeight.scale)}
-        substractButton.snp.makeConstraints { $0.width.height.equalTo(quantityHeight.scale)}
+        subtractButton.snp.makeConstraints { $0.width.height.equalTo(quantityHeight.scale)}
 
         quantityStackView.snp.makeConstraints { (make) in
             make.top.trailing.equalToSuperview()
             make.height.equalTo(quantityHeight.scale)
         }
+    }
+}
+
+extension ListCell {
+
+    func configure(_ entity: ListViewModel.Entity, index: Int) {
+        priceLabel.text = entity.price
+        nameLabel.text = entity.name
+        imageView.sd_setImage(with: entity.imageUrl, completed: nil)
+        quantityLabel.text = String(entity.amount)
+        addButton.tag = index
+        subtractButton.tag = index
+        subtractButton.isHidden = entity.amount == 0
+        quantityLabel.isHidden = entity.amount == 0
     }
 }

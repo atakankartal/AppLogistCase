@@ -26,6 +26,11 @@
 		094279122572330100F9E936 /* EnvironmentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094279112572330100F9E936 /* EnvironmentType.swift */; };
 		0942791A2572331000F9E936 /* APIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094279192572331000F9E936 /* APIType.swift */; };
 		0942791F2572338600F9E936 /* ProdEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0942791E2572338600F9E936 /* ProdEnvironment.swift */; };
+		094279252572380900F9E936 /* ListViewModel+Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094279242572380900F9E936 /* ListViewModel+Entity.swift */; };
+		0942792A25723AC300F9E936 /* ListViewModel+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0942792925723AC200F9E936 /* ListViewModel+Error.swift */; };
+		0942793925723CC500F9E936 /* ListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0942793825723CC500F9E936 /* ListResponse.swift */; };
+		09427947257243EA00F9E936 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09427946257243EA00F9E936 /* CartViewController.swift */; };
+		0942794C257243FA00F9E936 /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0942794B257243FA00F9E936 /* CartView.swift */; };
 		94107E6B4DCCECC3CD615DDE /* Pods_AppLogistCase_AppLogistCaseUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A3B11C5F5ACB5D9D3F4F6BC /* Pods_AppLogistCase_AppLogistCaseUITests.framework */; };
 		C273D7C0801615753DD6046F /* Pods_AppLogistCaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73CCFE65E1EB26E482432FF /* Pods_AppLogistCaseTests.framework */; };
 		F260A00DA4831372C3210FFD /* Pods_AppLogistCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55534EC7FA142BF67CB97166 /* Pods_AppLogistCase.framework */; };
@@ -74,6 +79,11 @@
 		094279112572330100F9E936 /* EnvironmentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentType.swift; sourceTree = "<group>"; };
 		094279192572331000F9E936 /* APIType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIType.swift; sourceTree = "<group>"; };
 		0942791E2572338600F9E936 /* ProdEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProdEnvironment.swift; sourceTree = "<group>"; };
+		094279242572380900F9E936 /* ListViewModel+Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewModel+Entity.swift"; sourceTree = "<group>"; };
+		0942792925723AC200F9E936 /* ListViewModel+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewModel+Error.swift"; sourceTree = "<group>"; };
+		0942793825723CC500F9E936 /* ListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListResponse.swift; sourceTree = "<group>"; };
+		09427946257243EA00F9E936 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
+		0942794B257243FA00F9E936 /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
 		161BF0D8492C5C7A103CD572 /* Pods-AppLogistCase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppLogistCase.debug.xcconfig"; path = "Target Support Files/Pods-AppLogistCase/Pods-AppLogistCase.debug.xcconfig"; sourceTree = "<group>"; };
 		55534EC7FA142BF67CB97166 /* Pods_AppLogistCase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppLogistCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A3B11C5F5ACB5D9D3F4F6BC /* Pods_AppLogistCase_AppLogistCaseUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppLogistCase_AppLogistCaseUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,7 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				090CD05E2572135400FD345C /* ListViewController.swift */,
-				090CD0B52572212700FD345C /* ListViewModel.swift */,
+				09427923257237F200F9E936 /* Models */,
 				090CD0D12572236E00FD345C /* UI */,
 			);
 			path = List;
@@ -209,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				090CD0AC25721FAD00FD345C /* List */,
+				09427945257243C400F9E936 /* Cart */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -228,6 +239,7 @@
 		094278F82572314F00F9E936 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0942793825723CC500F9E936 /* ListResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -256,6 +268,25 @@
 				094279192572331000F9E936 /* APIType.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		09427923257237F200F9E936 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				090CD0B52572212700FD345C /* ListViewModel.swift */,
+				094279242572380900F9E936 /* ListViewModel+Entity.swift */,
+				0942792925723AC200F9E936 /* ListViewModel+Error.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		09427945257243C400F9E936 /* Cart */ = {
+			isa = PBXGroup;
+			children = (
+				09427946257243EA00F9E936 /* CartViewController.swift */,
+				0942794B257243FA00F9E936 /* CartView.swift */,
+			);
+			path = Cart;
 			sourceTree = "<group>";
 		};
 		7F6CE87EAAF6114FF9C9C42D /* Pods */ = {
@@ -518,12 +549,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0942793925723CC500F9E936 /* ListResponse.swift in Sources */,
 				0942791A2572331000F9E936 /* APIType.swift in Sources */,
 				09427903257231A400F9E936 /* API.swift in Sources */,
+				0942792A25723AC300F9E936 /* ListViewModel+Error.swift in Sources */,
 				094279092572325D00F9E936 /* TestEnvironment.swift in Sources */,
 				0942791F2572338600F9E936 /* ProdEnvironment.swift in Sources */,
 				090CD0C82572231A00FD345C /* Double+Extensions.swift in Sources */,
+				094279252572380900F9E936 /* ListViewModel+Entity.swift in Sources */,
 				090CD0BE257222A900FD345C /* UIView+Extensions.swift in Sources */,
+				09427947257243EA00F9E936 /* CartViewController.swift in Sources */,
+				0942794C257243FA00F9E936 /* CartView.swift in Sources */,
 				094279122572330100F9E936 /* EnvironmentType.swift in Sources */,
 				090CD0B62572212700FD345C /* ListViewModel.swift in Sources */,
 				090CD0C3257222F200FD345C /* Int+Extension.swift in Sources */,

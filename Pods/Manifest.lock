@@ -4,23 +4,29 @@ PODS:
     - Moya/Core (= 14.0.0)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
+  - SDWebImage (5.10.0):
+    - SDWebImage/Core (= 5.10.0)
+  - SDWebImage/Core (5.10.0)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - Moya
+  - SDWebImage (~> 5.0)
   - SnapKit
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - Moya
+    - SDWebImage
     - SnapKit
 
 SPEC CHECKSUMS:
   Alamofire: 3b6a534a3df22db367e4dedeeca73d1ddfcf0e2f
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  SDWebImage: 9169792e9eec3e45bba2a0c02f74bf8bd922d1ee
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: c511422f45bb4d4c8f9e31761610b218466e234b
+PODFILE CHECKSUM: e1aa2a5306237732cc4a3b4ab61feaa872495d9b
 
 COCOAPODS: 1.10.0

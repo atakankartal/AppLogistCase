@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Moya
 
 class ListViewController: UIViewController {
 
@@ -18,48 +17,64 @@ class ListViewController: UIViewController {
         return self.view as! ListView
     }
 
+    // MARK: - Properties
+    let viewModel = ListViewModel()
+
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         layoutableView.collectionView.delegate = self
         layoutableView.collectionView.dataSource = self
+        // TODO: - show Activity Indicator
+        self.fetch()
+    }
 
-        API.mainService.request(.list) { (result) in
+    // MARK: - Networking
+    func fetch() {
+        viewModel.fetch { [weak self] (result) in
+            guard let self = self else { return }
             switch result {
             case .failure(let error):
                 print(error.localizedDescription)
-            case .success(let response):
-                do {
-                    let list = try JSONDecoder().decode([Item].self, from: response.data)
-                    print(list.first)
-                } catch {
-                    print(error.localizedDescription)
+            case .success:
+                DispatchQueue.main.async {
+                    self.layoutableView.collectionView.reloadData()
                 }
-                
             }
         }
     }
-}
 
-struct Item: Codable {
+    // MARK: - Operations
+    @objc func add(_ button: UIButton) {
+        let entity = viewModel.entities[button.tag]
+        if entity.amount < entity.stock {
+            entity.amount += 1
+        }
+        let indexPath = IndexPath(item: button.tag, section: 0)
+        self.layoutableView.collectionView.reloadItems(at: [indexPath])
+    }
 
-    let currency: String
-    let id: String
-    let imageUrl: String
-    let name: String
-    let price: Double
-    let stock: Int
+    @objc func subtract(_ button: UIButton) {
+        let entity = viewModel.entities[button.tag]
+        entity.amount -= 1
+        let indexPath = IndexPath(item: button.tag, section: 0)
+        self.layoutableView.collectionView.reloadItems(at: [indexPath])
+    }
 }
 
 // MARK: - CollectionView Delegate
 extension ListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 9
+        return self.viewModel.entities.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ListCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ListCell", for: indexPath) as! ListCell
+        let entity = viewModel.entities[indexPath.item]
+        cell.configure(entity, index: indexPath.item)
+        cell.addButton.addTarget(self, action: #selector(add(_:)), for: .touchUpInside)
+        cell.subtractButton.addTarget(self, action: #selector(subtract(_:)), for: .touchUpInside)
         return cell
     }
 }
