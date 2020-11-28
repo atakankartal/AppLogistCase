@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		090CD05B2572135400FD345C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090CD05A2572135400FD345C /* AppDelegate.swift */; };
-		090CD05D2572135400FD345C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090CD05C2572135400FD345C /* SceneDelegate.swift */; };
 		090CD05F2572135400FD345C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090CD05E2572135400FD345C /* ViewController.swift */; };
-		090CD0622572135400FD345C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 090CD0602572135400FD345C /* Main.storyboard */; };
 		090CD0652572135400FD345C /* AppLogistCase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 090CD0632572135400FD345C /* AppLogistCase.xcdatamodeld */; };
 		090CD0672572135700FD345C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 090CD0662572135700FD345C /* Assets.xcassets */; };
 		090CD06A2572135700FD345C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 090CD0682572135700FD345C /* LaunchScreen.storyboard */; };
@@ -38,9 +36,7 @@
 /* Begin PBXFileReference section */
 		090CD0572572135400FD345C /* AppLogistCase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppLogistCase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		090CD05A2572135400FD345C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		090CD05C2572135400FD345C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		090CD05E2572135400FD345C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		090CD0612572135400FD345C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		090CD0642572135400FD345C /* AppLogistCase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppLogistCase.xcdatamodel; sourceTree = "<group>"; };
 		090CD0662572135700FD345C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		090CD0692572135700FD345C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -102,9 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				090CD05A2572135400FD345C /* AppDelegate.swift */,
-				090CD05C2572135400FD345C /* SceneDelegate.swift */,
 				090CD05E2572135400FD345C /* ViewController.swift */,
-				090CD0602572135400FD345C /* Main.storyboard */,
 				090CD0662572135700FD345C /* Assets.xcassets */,
 				090CD0682572135700FD345C /* LaunchScreen.storyboard */,
 				090CD06B2572135700FD345C /* Info.plist */,
@@ -236,7 +230,6 @@
 			files = (
 				090CD06A2572135700FD345C /* LaunchScreen.storyboard in Resources */,
 				090CD0672572135700FD345C /* Assets.xcassets in Resources */,
-				090CD0622572135400FD345C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,7 +257,6 @@
 				090CD05F2572135400FD345C /* ViewController.swift in Sources */,
 				090CD0652572135400FD345C /* AppLogistCase.xcdatamodeld in Sources */,
 				090CD05B2572135400FD345C /* AppDelegate.swift in Sources */,
-				090CD05D2572135400FD345C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,14 +292,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		090CD0602572135400FD345C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				090CD0612572135400FD345C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		090CD0682572135700FD345C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -450,7 +434,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.abc.AppLogistCase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -469,7 +453,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.abc.AppLogistCase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
