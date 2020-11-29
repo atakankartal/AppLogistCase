@@ -41,14 +41,11 @@ class CartManager {
         }
     }
 
-    func removeProduct(_ _product: Product) {
-        guard let index = products.firstIndex(where: { $0.id == _product.id }) else { return }
-        let copyProduct = Product(id: _product.id, name: _product.name, price: _product.price, imageUrl: _product.imageUrl, stock: _product.stock, currency: _product.currency, index: _product.index)
-//        let product = products[index]
-//        product.amount = 0
-        copyProduct.amount = 0
+    func removeProduct(at index: Int) {
+        let product = products[index]
+        product.amount = 0
+        postEvent(producst: [product])
         products.remove(at: index)
-        postEvent(producst: [copyProduct])
     }
 
     func clearAll() {

@@ -45,6 +45,7 @@ class ListView: UIView {
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
         view.layer.shadowRadius = 5
         view.isHidden = true
+        view.isUserInteractionEnabled = true
         return view
     }()
 

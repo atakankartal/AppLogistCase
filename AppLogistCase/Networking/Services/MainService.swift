@@ -11,6 +11,7 @@ import Moya
 enum MainService<E: EnvironmentType> {
 
     case list
+    case checkout(request: CheckoutRequestModel)
 }
 
 extension MainService: TargetType {
@@ -23,6 +24,8 @@ extension MainService: TargetType {
         switch self {
         case .list:
             return "list"
+        case .checkout:
+            return "checkout"
         }
     }
     
@@ -30,6 +33,8 @@ extension MainService: TargetType {
         switch self {
         case .list:
             return .get
+        case .checkout:
+            return .post
         }
     }
     
@@ -41,6 +46,8 @@ extension MainService: TargetType {
         switch self {
         case .list:
             return .requestPlain
+        case .checkout(let request):
+            return .requestCustomJSONEncodable(request, encoder: JSONEncoder())
         }
     }
     

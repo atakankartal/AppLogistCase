@@ -27,6 +27,7 @@ class ListViewController: UIViewController {
         layoutableView.collectionView.delegate = self
         layoutableView.collectionView.dataSource = self
         layoutableView.cartImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showCart)))
+        layoutableView.cartBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showCart)))
         NotificationCenter.default.addObserver(self, selector: #selector(productHasEdited(_:)), name: NSNotification.Name.init("ProductAmountHasChanged"), object: nil)
         // TODO: - show Activity Indicator
         self.fetch()
@@ -63,16 +64,10 @@ class ListViewController: UIViewController {
     //MARK: - Observer
     @objc func productHasEdited(_ notification: NSNotification) {
         guard let products = notification.userInfo?["products"] as? [Product] else { return }
-        var editedIndices = [IndexPath]()
-        products.forEach { (product) in
-            guard let index = self.viewModel.products.firstIndex(where: { $0 == product}) else { return }
-            self.viewModel.products[index].amount = product.amount
-            editedIndices.append(IndexPath(item: index, section: 0))
-        }
-        layoutableView.collectionView.reloadItems(at: editedIndices)
-        let total = CartManager.shared.totalProducts
-        layoutableView.cartBadgeView.isHidden = total == 0
-        layoutableView.cartLabel.text = String(total)
+        viewModel.handleEditedIndices(for: products)
+        layoutableView.collectionView.reloadItems(at: viewModel.editedIndices)
+        layoutableView.cartBadgeView.isHidden = viewModel.totalProductCount == 0
+        layoutableView.cartLabel.text = String(viewModel.totalProductCount)
     }
 
     // MARK: - Router

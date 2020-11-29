@@ -18,7 +18,7 @@ class CartViewController: UIViewController {
     }
 
     // MARK: - Properties
-    var editedIndices = [Int]()
+    let viewModel = CartViewModel()
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -28,6 +28,7 @@ class CartViewController: UIViewController {
         layoutableView.tableView.dataSource = self
         layoutableView.dismissButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
         layoutableView.clearButton.addTarget(self, action: #selector(clear), for: .touchUpInside)
+        layoutableView.submitButton.addTarget(self, action: #selector(checkout), for: .touchUpInside)
         NotificationCenter.default.addObserver(self, selector: #selector(productHasEdited(_:)), name: NSNotification.Name.init("ProductAmountHasChanged"), object: nil)
         productHasEdited(nil)
     }
@@ -36,29 +37,35 @@ class CartViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.init("ProductAmountHasChanged"), object: nil)
     }
 
-    // MARK: - Operations
-    @objc func add(_ button: UIButton) {
-        guard let index = CartManager.shared.products.firstIndex(where: { $0.index == button.tag}) else { return }
-        CartManager.shared.increaseQuantity(for: CartManager.shared.products[index])
-        reload(index: index)
-    }
-
-    @objc func subtract(_ button: UIButton) {
-        guard let index = CartManager.shared.products.firstIndex(where: { $0.index == button.tag}) else { return }
-        if CartManager.shared.products[index].amount == 1 {
-            CartManager.shared.decreaseQuantity(for: CartManager.shared.products[index])
-            layoutableView.tableView.beginUpdates()
-            layoutableView.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .left)
-            layoutableView.tableView.endUpdates()
-        } else {
-            CartManager.shared.decreaseQuantity(for: CartManager.shared.products[index])
-            reload(index: index)
+    @objc func checkout() {
+        self.viewModel.checkout { (result) in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let response):
+                print(response.message)
+            }
         }
     }
 
-    func reload(index: Int) {
-        let indexPath = IndexPath(item: index, section: 0)
-        self.layoutableView.tableView.reloadRows(at: [indexPath], with: .none)
+    // MARK: - Operations
+    @objc func add(_ button: UIButton) {
+        viewModel.add(tag: button.tag)
+        self.layoutableView.tableView.reloadRows(at: viewModel.editedIndices, with: .none)
+        viewModel.editedIndices = []
+    }
+
+    @objc func subtract(_ button: UIButton) {
+        viewModel.subtract(tag: button.tag)
+        if viewModel.shouldDeleteRows {
+            layoutableView.tableView.beginUpdates()
+            layoutableView.tableView.deleteRows(at: viewModel.editedIndices, with: .left)
+            layoutableView.tableView.endUpdates()
+        } else {
+            self.layoutableView.tableView.reloadRows(at: viewModel.editedIndices, with: .none)
+        }
+        viewModel.editedIndices = []
+        viewModel.shouldDeleteRows = false
     }
 
     @objc func clear() {
@@ -77,22 +84,10 @@ class CartViewController: UIViewController {
     
     //MARK: - Observer
     @objc func productHasEdited(_ notification: NSNotification?) {
-        let products = CartManager.shared.products
-        guard let currency = products.first?.currency
-        else {
-            layoutableView.priceLabel.text = "Ürün yok"
-            layoutableView.submitButton.isHidden = true
-            layoutableView.noProductLabel.isHidden = false
-            return
-        }
-        let totalPrice = products.map{ Double($0.amount) * $0.price}.reduce(0, +).rounded(toPlaces: 2)
-        let totalAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray, .font: UIFont.systemFont(ofSize: 17)]
-        let priceAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.black, .font: UIFont.boldSystemFont(ofSize: 20)]
-        let totalString = NSMutableAttributedString(string: "Toplam:  ", attributes: totalAttributes)
-        let priceString = NSMutableAttributedString(string: currency + String(totalPrice), attributes: priceAttributes)
-        totalString.append(priceString)
-        layoutableView.priceLabel.attributedText = totalString
-        layoutableView.submitButton.isHidden = false
+        viewModel.handleEditedProducts()
+        layoutableView.submitButton.isHidden = viewModel.isEmpty
+        layoutableView.noProductLabel.isHidden = !viewModel.isEmpty
+        layoutableView.priceLabel.attributedText = viewModel.priceText
     }
 
     // MARK: - Routers
@@ -122,7 +117,7 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            CartManager.shared.removeProduct(CartManager.shared.products[indexPath.row])
+            CartManager.shared.removeProduct(at: indexPath.row)
             layoutableView.tableView.beginUpdates()
             layoutableView.tableView.deleteRows(at: [indexPath], with: .left)
             layoutableView.tableView.endUpdates()

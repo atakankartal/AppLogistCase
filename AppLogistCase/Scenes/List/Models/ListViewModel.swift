@@ -11,6 +11,8 @@ import Moya
 class ListViewModel {
 
     var products = [Product]()
+    var editedIndices = [IndexPath]()
+    var totalProductCount = 0
 
     /// Add Documentation
     /// Fetches list of products
@@ -54,5 +56,16 @@ class ListViewModel {
     func decrease(index: Int) {
         let product = products[index]
         CartManager.shared.decreaseQuantity(for: product)
+    }
+
+    func handleEditedIndices(for products: [Product]) {
+        editedIndices.removeAll()
+        products.forEach { (product) in
+            guard let index = self.products.firstIndex(where: { $0 == product}) else { return }
+            self.products[index].amount = product.amount
+            editedIndices.append(IndexPath(item: index, section: 0))
+        }
+        totalProductCount = CartManager.shared.totalProducts
+        
     }
 }
