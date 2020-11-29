@@ -101,6 +101,7 @@ class CartViewController: UIViewController {
         layoutableView.submitButton.isHidden = viewModel.isEmpty
         layoutableView.noProductLabel.isHidden = !viewModel.isEmpty
         layoutableView.priceLabel.attributedText = viewModel.priceText
+        layoutableView.clearButton.isHidden = viewModel.isEmpty
     }
 
     // MARK: - Routers
