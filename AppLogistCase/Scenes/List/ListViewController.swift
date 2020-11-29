@@ -29,7 +29,6 @@ class ListViewController: UIViewController {
         layoutableView.cartImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showCart)))
         layoutableView.cartBadgeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showCart)))
         NotificationCenter.default.addObserver(self, selector: #selector(productHasEdited(_:)), name: NSNotification.Name.init("ProductAmountHasChanged"), object: nil)
-        // TODO: - show Activity Indicator
         self.fetch()
     }
 
@@ -43,7 +42,6 @@ class ListViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .failure(let error):
-                print(error.localizedDescription)
                 Alert(title: "Hata", body: error.localizedDescription, theme: .error, allowDismiss: true).show()
             case .success:
                 DispatchQueue.main.async {

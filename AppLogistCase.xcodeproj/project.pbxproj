@@ -300,8 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				09427946257243EA00F9E936 /* CartViewController.swift */,
-				09427984257392B600F9E936 /* CartViewModel.swift */,
-				0942799625739FCC00F9E936 /* CartViewModel+Error.swift */,
+				094279AF2573A55C00F9E936 /* Models */,
 				094279802572821B00F9E936 /* UI */,
 			);
 			path = Cart;
@@ -324,6 +323,15 @@
 				0942797B2572737D00F9E936 /* CartCell.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		094279AF2573A55C00F9E936 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				09427984257392B600F9E936 /* CartViewModel.swift */,
+				0942799625739FCC00F9E936 /* CartViewModel+Error.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		7F6CE87EAAF6114FF9C9C42D /* Pods */ = {

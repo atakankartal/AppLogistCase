@@ -37,14 +37,14 @@ class CartViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.init("ProductAmountHasChanged"), object: nil)
     }
 
+    // MARK: - Networking
     @objc func checkout() {
-        self.viewModel.checkout { (result) in
+        self.viewModel.checkout { [weak self] (result) in
+            guard let self = self else { return }
             switch result {
             case .failure(let error):
-                print(error)
                 Alert(title: "Hata", body: error.localizedDescription, theme: .error, allowDismiss: true).show()
             case .success(let response):
-                print(response.message)
                 self.clear(showAlert: false)
                 Alert(title: "Tebrikler", body: response.message, layout: .messageView, theme: .success, allowDismiss: true).show()
             }

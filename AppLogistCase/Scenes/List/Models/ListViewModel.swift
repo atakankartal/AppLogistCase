@@ -14,9 +14,6 @@ class ListViewModel {
     var editedIndices = [IndexPath]()
     var totalProductCount = 0
 
-    /// Add Documentation
-    /// Fetches list of products
-    /// Parameters:
     func fetch(completion: @escaping(Result<[Product], VMError>) -> Void) {
         API.mainService.request(.list) { [weak self] (result) in
             guard let self = self else { return }
