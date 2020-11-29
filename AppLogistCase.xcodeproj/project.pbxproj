@@ -37,6 +37,7 @@
 		0942798D257399E500F9E936 /* CheckoutRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0942798C257399E500F9E936 /* CheckoutRequestModel.swift */; };
 		0942799225739DFA00F9E936 /* CheckoutResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0942799125739DFA00F9E936 /* CheckoutResponseModel.swift */; };
 		0942799725739FCC00F9E936 /* CartViewModel+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0942799625739FCC00F9E936 /* CartViewModel+Error.swift */; };
+		094279AB2573A15900F9E936 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094279AA2573A15900F9E936 /* Alert.swift */; };
 		94107E6B4DCCECC3CD615DDE /* Pods_AppLogistCase_AppLogistCaseUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A3B11C5F5ACB5D9D3F4F6BC /* Pods_AppLogistCase_AppLogistCaseUITests.framework */; };
 		C273D7C0801615753DD6046F /* Pods_AppLogistCaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73CCFE65E1EB26E482432FF /* Pods_AppLogistCaseTests.framework */; };
 		F260A00DA4831372C3210FFD /* Pods_AppLogistCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55534EC7FA142BF67CB97166 /* Pods_AppLogistCase.framework */; };
@@ -96,6 +97,7 @@
 		0942798C257399E500F9E936 /* CheckoutRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutRequestModel.swift; sourceTree = "<group>"; };
 		0942799125739DFA00F9E936 /* CheckoutResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutResponseModel.swift; sourceTree = "<group>"; };
 		0942799625739FCC00F9E936 /* CartViewModel+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CartViewModel+Error.swift"; sourceTree = "<group>"; };
+		094279AA2573A15900F9E936 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		161BF0D8492C5C7A103CD572 /* Pods-AppLogistCase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppLogistCase.debug.xcconfig"; path = "Target Support Files/Pods-AppLogistCase/Pods-AppLogistCase.debug.xcconfig"; sourceTree = "<group>"; };
 		55534EC7FA142BF67CB97166 /* Pods_AppLogistCase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppLogistCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A3B11C5F5ACB5D9D3F4F6BC /* Pods_AppLogistCase_AppLogistCaseUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppLogistCase_AppLogistCaseUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -310,6 +312,7 @@
 			children = (
 				094279512572452900F9E936 /* CartManager.swift */,
 				094279732572626500F9E936 /* Product.swift */,
+				094279AA2573A15900F9E936 /* Alert.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				090CD0C82572231A00FD345C /* Double+Extensions.swift in Sources */,
 				0942799725739FCC00F9E936 /* CartViewModel+Error.swift in Sources */,
 				090CD0BE257222A900FD345C /* UIView+Extensions.swift in Sources */,
+				094279AB2573A15900F9E936 /* Alert.swift in Sources */,
 				09427947257243EA00F9E936 /* CartViewController.swift in Sources */,
 				09427985257392B600F9E936 /* CartViewModel.swift in Sources */,
 				0942794C257243FA00F9E936 /* CartView.swift in Sources */,

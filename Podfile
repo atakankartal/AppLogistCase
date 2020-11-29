@@ -9,6 +9,7 @@ target 'AppLogistCase' do
   pod 'SnapKit'
   pod 'Moya'
   pod 'SDWebImage', '~> 5.0'
+  pod 'SwiftMessages'
 
   target 'AppLogistCaseTests' do
     inherit! :search_paths

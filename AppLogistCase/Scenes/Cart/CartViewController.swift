@@ -42,8 +42,11 @@ class CartViewController: UIViewController {
             switch result {
             case .failure(let error):
                 print(error)
+                Alert(title: "Hata", body: error.localizedDescription, theme: .error, allowDismiss: true).show()
             case .success(let response):
                 print(response.message)
+                self.clear(showAlert: false)
+                Alert(title: "Tebrikler", body: response.message, layout: .messageView, theme: .success, allowDismiss: true).show()
             }
         }
     }
@@ -68,18 +71,24 @@ class CartViewController: UIViewController {
         viewModel.shouldDeleteRows = false
     }
 
-    @objc func clear() {
+    @objc func clear(showAlert: Bool = true) {
         guard CartManager.shared.products.count > 0 else { return }
-        let alert = UIAlertController(title: "Dikkat!", message: "Sepetinizdeki tüm ürünleri silmek istediğinizden emin misiniz?", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Sil", style: .destructive, handler: { (_) in
+        if showAlert {
+            let alert = UIAlertController(title: "Dikkat!", message: "Sepetinizdeki tüm ürünleri silmek istediğinizden emin misiniz?", preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "Sil", style: .destructive, handler: { (_) in
+                CartManager.shared.clearAll()
+                self.layoutableView.tableView.reloadData()
+                self.layoutableView.noProductLabel.isHidden = false
+            }))
+            alert.addAction(UIAlertAction(title: "Vazgeç", style: .cancel, handler: { (_) in
+                
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else {
             CartManager.shared.clearAll()
             self.layoutableView.tableView.reloadData()
             self.layoutableView.noProductLabel.isHidden = false
-        }))
-        alert.addAction(UIAlertAction(title: "Vazgeç", style: .cancel, handler: { (_) in
-            
-        }))
-        self.present(alert, animated: true, completion: nil)
+        }
     }
     
     //MARK: - Observer

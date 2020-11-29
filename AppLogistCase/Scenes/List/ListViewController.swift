@@ -44,6 +44,7 @@ class ListViewController: UIViewController {
             switch result {
             case .failure(let error):
                 print(error.localizedDescription)
+                Alert(title: "Hata", body: error.localizedDescription, theme: .error, allowDismiss: true).show()
             case .success:
                 DispatchQueue.main.async {
                     self.layoutableView.collectionView.reloadData()
