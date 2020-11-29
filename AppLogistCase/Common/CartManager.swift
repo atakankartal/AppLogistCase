@@ -18,7 +18,7 @@ class CartManager {
     }
 
     func increaseQuantity(for _product: Product) {
-        guard let product = products.first(where: { $0.id == _product.id }) else {
+        guard let product = products.first(where: { $0 == _product }) else {
             _product.amount += 1
             products.append(_product)
             postEvent(producst: [_product])
@@ -31,11 +31,11 @@ class CartManager {
     }
 
     func decreaseQuantity(for _product: Product) {
-        guard let product = products.first(where: { $0.id == _product.id }) else { return }
+        guard let product = products.first(where: { $0 == _product }) else { return }
         product.amount -= 1
         if product.amount == 0 {
             postEvent(producst: [product])
-            products.removeAll(where: { $0.id == product.id})
+            products.removeAll(where: { $0 == product})
         } else {
             postEvent(producst: [product])
         }
