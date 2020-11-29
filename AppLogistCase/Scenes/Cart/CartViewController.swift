@@ -27,7 +27,7 @@ class CartViewController: UIViewController {
         layoutableView.tableView.delegate = self
         layoutableView.tableView.dataSource = self
         layoutableView.dismissButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
-        layoutableView.clearButton.addTarget(self, action: #selector(clear), for: .touchUpInside)
+        layoutableView.clearButton.addTarget(self, action: #selector(clearCart), for: .touchUpInside)
         layoutableView.submitButton.addTarget(self, action: #selector(checkout), for: .touchUpInside)
         NotificationCenter.default.addObserver(self, selector: #selector(productHasEdited(_:)), name: NSNotification.Name.init("ProductAmountHasChanged"), object: nil)
         productHasEdited(nil)
@@ -71,7 +71,11 @@ class CartViewController: UIViewController {
         viewModel.shouldDeleteRows = false
     }
 
-    @objc func clear(showAlert: Bool = true) {
+    @objc func clearCart() {
+        self.clear(showAlert: true)
+    }
+
+    @objc func clear(showAlert: Bool) {
         guard CartManager.shared.products.count > 0 else { return }
         if showAlert {
             let alert = UIAlertController(title: "Dikkat!", message: "Sepetinizdeki tüm ürünleri silmek istediğinizden emin misiniz?", preferredStyle: .actionSheet)
